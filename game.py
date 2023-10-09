@@ -30,6 +30,11 @@ game_over_text = font.render('Game Over', True, 'red')
 w, h = game_over_text.get_size()
 # display.blit(game_over_text, (screen_width/2 - w/2, screen_height / 2 - h/2))
 
+#счетчик
+score = 0
+score_font = pg.font.SysFont('Times New Roman',26)
+score_text = score_font.render(f'Счет: {str(score)}', True, 'White')
+
 # игрок
 player_img = pg.image.load('src/player.png')
 player_width, player_height = player_img.get_size()
@@ -91,7 +96,7 @@ def bullet_model():
 def bullet_create():
     global bullet_y, bullet_x, bullet_alive
     bullet_alive = True
-    bullet_x = player_x  + 17# микро дз - пускать из середины
+    bullet_x = player_x + 17# микро дз - пускать из середины
     bullet_y = player_y - bullet_height
 
 def enemy_model():
@@ -111,13 +116,19 @@ def enemy_model():
         # попал!
         if is_crossed:
             print('BANG!')
+            score_up()
             enemy_create()
             bullet_alive = False
 
+def score_up():
+    global score, score_text
+    score += 1
+    score_text = score_font.render(f'Счет:{str(score)}', True, 'White')
 def display_redraw():
     display.blit(bg_img, (0, 0))
     display.blit(player_img, (player_x, player_y))
     display.blit(enemy_img, (enemy_x, enemy_y))
+    display.blit(score_text,(10,10))
     if bullet_alive:
         display.blit(bullet_img, (bullet_x, bullet_y))
     pg.display.update()
