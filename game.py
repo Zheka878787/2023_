@@ -91,7 +91,7 @@ def bullet_model():
 def bullet_create():
     global bullet_y, bullet_x, bullet_alive
     bullet_alive = True
-    bullet_x = player_x  # микро дз - пускать из середины
+    bullet_x = player_x  + 17# микро дз - пускать из середины
     bullet_y = player_y - bullet_height
 
 def enemy_model():
